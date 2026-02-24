@@ -1,0 +1,18 @@
+services:
+  redis:
+    image: redis:7-alpine
+    ports: ["6379:6379"]
+
+  api:
+    image: python:3.12-slim
+    working_dir: /app
+    volumes:
+      - ./:/app
+    command: bash -lc "pip install -r requirements.txt && uvicorn app.main:app --host 0.0.0.0 --port 8080"
+    ports: ["8080:8080"]
+    environment:
+      - REDIS_HOST=redis
+      - AI_URL=http://host.docker.internal:11434/api/generate
+      - AI_MODEL=llama3.1
+    depends_on:
+      - redis
