@@ -2,11 +2,16 @@
 """Simple WebSocket test client for /ws/stream.
 
 Usage:
-  python scripts/ws_test_client.py --url ws://localhost:8080/ws/stream --text "hello" --final-text "what time is it"
+  python scripts/ws_test_client.py \
+    --url ws://localhost:8080/ws/stream \
+    --text "hello" \
+    --final-text "what time is it"
 """
+
 import argparse
 import asyncio
 import json
+
 import websockets
 
 
@@ -22,7 +27,7 @@ async def run(url: str, text: str, final_text: str):
                 payload = json.loads(msg)
                 if payload.get("type") == "final":
                     break
-        except asyncio.TimeoutError:
+        except TimeoutError:
             print("No final response received within timeout")
 
 

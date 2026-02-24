@@ -6,7 +6,7 @@ on:
   pull_request:
 
 jobs:
-  test:
+  test-and-quality:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -21,6 +21,12 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements-dev.txt
+
+      - name: Lint (ruff)
+        run: ruff check .
+
+      - name: Format check (black)
+        run: black --check .
 
       - name: Run unit tests
         run: pytest -q

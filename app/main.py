@@ -1,13 +1,16 @@
 from fastapi import FastAPI, WebSocket
+
+from app.cache import get_cache, set_cache
 from app.router import fast_intent
 from app.workers import deep_llm
-from app.cache import get_cache, set_cache
 
 app = FastAPI()
+
 
 @app.get("/health")
 def health():
     return {"ok": True}
+
 
 @app.websocket("/ws/stream")
 async def ws_stream(ws: WebSocket):
