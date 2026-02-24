@@ -16,3 +16,15 @@ docker compose up --build
 {"text":"สวัสดี","final":false}
 {"text":"วันนี้มีนัดไหม","final":true}
 ```
+
+
+## WebSocket Test Client
+```bash
+pip install -r requirements-dev.txt
+python scripts/ws_test_client.py --url ws://localhost:8080/ws/stream
+```
+
+## CI
+GitHub Actions workflow: `.github/workflows/ci.yml`
+- Runs unit tests (`pytest`)
+- Validates `docker compose` config
